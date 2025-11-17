@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Cliente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100vh; overflow-y: auto; }
+    .slideshow { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; }
+    .slideshow img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 2s ease-in-out; }
+    .slideshow img.active { opacity: 1; }
+    .form-container {
+      position: relative;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      margin: 50px auto;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      text-align: center;
+      color: white;
+      z-index: 1;
+    }
+    img.logo { max-width: 100px; margin-bottom: 10px; }
+    h1 { font-size: 1.5em; margin: 10px 0; }
+    h2 { font-size: 1.2em; margin-bottom: 20px; }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    input, select { background-color: rgba(28, 28, 28, 0.7); color: white; }
+    input:focus, select:focus { outline: none; border: 2px solid #00b4d8; background-color: #222; }
+    button {
+      background-color: #00b4d8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 180, 216, 0.4);
+      transition: 0.3s ease-in-out;
+    }
+    button:hover { background-color: #0077b6; transform: translateY(-2px); }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: #f0f0f0;
+      margin: 10px 0;
+      width: 100%;
+    }
+    .checkbox label { flex: 1; color: #f0f0f0; }
+    .checkbox a { color: #00b4d8; text-decoration: underline; }
+    .modal-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.7);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2;
+    }
+    .modal-content {
+      background: white; color: #333;
+      padding: 20px; border-radius: 8px;
+      max-width: 90%; max-height: 80%; overflow-y: auto;
+      position: relative;
+      text-align: center;
+    }
+    .modal-content h3 { margin-top: 0; }
+    .modal-close {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(255,255,255,0.8); border: none;
+      font-size: 24px; border-radius: 50%; width: 32px; height: 32px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { background: rgba(255,255,255,1); }
+    .footer-container {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px); border-radius: 15px;
+      padding: 20px; width: 90%; max-width: 400px;
+      margin: 20px auto 50px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      text-align: center; color: white; z-index: 1;
+    }
+    .footer-container a { color: #00b4d8; text-decoration: none; }
+    .footer-container a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="slideshow">
+  <img src="bgrn0.jpg" class="active">
+  <img src="bgrn1.jpg">
+  <img src="bgrn2.jpg">
+  <img src="bgrn3.jpg">
+  <img src="bgrn4.jpg">
+  <img src="bgrn4.1.jpg">
+</div>
+
+<div class="form-container">
+  <img src="logo_formulario.png" alt="Logo" class="logo" />
+  <h1>TIL EXPANSIÓN</h1>
+  <h2 style="color: rgb(80 177 212);">CENTRO DE DETAILING PROFESIONAL</h2>
+  <h2>REGISTRO COTIZACIONES CLIENTES</h2>
+  <form id="formularioCliente">
+    <input type="text" name="nombre" placeholder="Nombre completo" required />
+    <select name="servicio" required>
+      <option value="">Seleccione un servicio</option>
+      <option value="Flushing">Flushing</option>
+      <option value="Antigrava">Antigrava</option>
+      <option value="Detailing">Detailing</option>
+      <option value="PPF">PPF (Película Protectora de Pintura)</option>
+      <option value="Lavados">Lavados Profesionales</option>
+      <option value="Enderezado y Pintura">Enderezado y Pintura</option>
+      <option value="Pulidos y Lustrados">Pulidos y Lustrados</option>
+      <option value="Otros servicios Premium">Otros servicios Premium</option>
+    </select>
+    <input type="text" name="vehiculo" placeholder="Tipo de Vehículo (Ej. Ford F-350 Lariat 2023)" required />
+    <input type="email" name="correo" placeholder="Correo electrónico" required />
+    <input type="tel" name="telefono" placeholder="Teléfono de contacto" required />
+    <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+    <div class="checkbox">
+      <input type="checkbox" id="terminos" required />
+      <label for="terminos">Acepto la <a href="#" id="linkPrivacy">Política de Privacidad</a> y los <a href="#" id="linkTerms">Términos y Condiciones</a></label>
+    </div>
+    <button type="submit">Solicitar Cotización</button>
+  </form>
+</div>
+
+<div class="footer-container">
+  <p>TIL EXPANSIÓN - ¡DETAILS NEVER DIE!</p>
+  <p>Centro de Operaciones Z5: <a href="https://waze.com/ul/h9fxehmh57" target="_blank">31-60 11 Avenida B, Zona 5, Guatemala</a></p>
+  <p>Centro de Operaciones Mixco: <a href="https://waze.com/ul/h9fxe74q70" target="_blank">18-43 6a Calle, Zona 4, Mixco</a></p>
+  <p>Contacto: <a href="mailto:tilexpansiongerencia@gmail.com">tilexpansiongerencia@gmail.com</a> | Tel: 3566 1743</p>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content" id="modalContent">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div id="modalText"></div>
+  </div>
+</div>
+
+<script>
+  // Slideshow
+  const images = document.querySelectorAll('.slideshow img'); let idx=0;
+  setInterval(() => { images[idx].classList.remove('active'); idx=(idx+1)%images.length; images[idx].classList.add('active'); }, 7000);
+  
+  // Modal
+  const overlay=document.getElementById('modalOverlay');
+  const modalText=document.getElementById('modalText');
+  const closeBtn=document.getElementById('modalClose');
+  document.getElementById('linkPrivacy').addEventListener('click',e=>{
+    e.preventDefault();
+    modalText.innerHTML=`<h3>Política de Privacidad</h3><p>Tu privacidad es importante para nosotros. Cualquier información que nos proporciones, como tu nombre o correo electrónico, se utilizará únicamente para contactarte en relación con nuestros servicios o productos. Te garantizamos que tu información no será compartida, vendida ni distribuida a terceros bajo ninguna circunstancia. Además, implementamos medidas de seguridad técnicas y organizativas para proteger tus datos.</p>`;
+    overlay.style.display='flex';
+  });
+  document.getElementById('linkTerms').addEventListener('click',e=>{
+    e.preventDefault();
+    modalText.innerHTML=`<h3>Términos y Condiciones</h3><p>Al utilizar nuestros servicios, aceptas los siguientes términos:</p><ul><li><strong>Uso del Servicio:</strong> Nuestros servicios están diseñados para mantenimientos y correcciones según evaluaciones previas a todo tipo de vehículos. Te comprometes a utilizarlos de manera lícita y respetuosa.</li><li><strong>Información de Contacto:</strong> La información que nos proporciones se usará únicamente para comunicarnos contigo respecto al servicio solicitado y no será compartida con terceros.</li><li><strong>Modificaciones:</strong> Nos reservamos el derecho de modificar estos términos en cualquier momento, efectivos al publicarlos en nuestro sitio o comunicar por otros medios.</li><li><strong>Limitación de Responsabilidad:</strong> Aunque buscamos precisión, no garantizamos disponibilidad continua ni ausencia de errores.</li></ul>`;
+    overlay.style.display='flex';
+  });
+  closeBtn.addEventListener('click',()=>overlay.style.display='none');overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.style.display='none';});
+  
+  // Form submit con bloqueo y ventana de carga
+  const form=document.getElementById('formularioCliente');
+  let isSending=false;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(this.honeypot.value||isSending)return;
+    isSending=true;
+    const btn=this.querySelector('button[type="submit"]');btn.disabled=true;
+    modalText.innerHTML=`<h3>Enviando datos...</h3><p>Un momento, por favor.</p>`;overlay.style.display='flex';
+    fetch('https://script.google.com/macros/s/AKfycbwXdkvBPpJQVENCBEtdOuE5ss26S7vbUz7XuYDZzheNst7-LXDJ0poLpnpqvp4EXah7/exec',{
+      method:'POST',body:new FormData(this)
+    })
+    .then(res=>res.ok?modalText.innerHTML=`<h3>Gracias</h3><p>Datos enviados correctamente, te contactaremos pronto.</p>`:modalText.innerHTML=`<h3>Error</h3><p>No se pudieron enviar los datos.</p>`)
+    .catch(()=>modalText.innerHTML=`<h3>Error</h3><p>Error de red.</p>`)
+    .finally(()=>{isSending=false;btn.disabled=false;this.reset();});
+  });
+</script>
+
+</body>
+</html>
